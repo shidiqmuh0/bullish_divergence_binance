@@ -48,12 +48,15 @@ def detect_bullish_divergence(df):
 markets = exchange.load_markets()
 symbols = [symbol for symbol in markets.keys() if '/USDT' in symbol]
 
+# User input for timeframe
+timeframe = input("Choose timeframe (1h, 4h, 1d): ").strip()
+
 # Analyze each symbol
 bullish_divergence_symbols = []
 
 for symbol in symbols:
     try:
-        df = fetch_ohlcv(symbol)
+        df = fetch_ohlcv(symbol, timeframe=timeframe)
         calculate_macd(df)
         calculate_rsi(df)
         
